@@ -1,9 +1,18 @@
+/*
+  Collection of useful information I found online,
+  based on http://www.caam.rice.edu/~timwar/HPC12/OpenCL/cl_stuff.c
+  to find the available OpenCL devices and print their characteristics
+  To compile on MAC OS:
+  gcc -framework opencl -o info device_info.c
+  To run:
+  ./info
+*/
+
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
 #include <sys/time.h>
 #include <OpenCL/opencl.h>
-//#include "mykernel.cl.h"
 
 
 int main(int argc, char *argv[]){
@@ -100,15 +109,11 @@ int main(int argc, char *argv[]){
 
       clGetDeviceInfo(devices[j], CL_DEVICE_AVAILABLE, sizeof(available), &available, NULL);
 
-       //clGetDeviceInfo(devices[j], CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(size_wg), &size_wg, NULL);
       clGetDeviceInfo(devices[j], CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(buf_ulong), &buf_ulong, NULL);
-      printf("DEVICE_MAX_WORK_GROUP_SIZE = %llu\n", (unsigned long long)buf_ulong);
 
       clGetDeviceInfo(devices[i], CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, sizeof(workitem_dims), &workitem_dims, NULL);
-      printf("CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS:\t%u\n", (unsigned int) workitem_dims);
 
       clGetDeviceInfo(devices[i], CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(workitem_size), &workitem_size, NULL);
-      printf("CL_DEVICE_MAX_WORK_ITEM_SIZES:\t%u / %u / %u \n", workitem_size[0], workitem_size[1], workitem_size[2]);
 
 
 
@@ -128,11 +133,16 @@ int main(int argc, char *argv[]){
 
       printf("\t\tGlobal Memory:\t\t\t%0.00f mb\n", (double)amountOfMemory/1048576);
 
-      printf("\t\tMax Allocateable Memory:\t%0.00f mb\n", (double)maxAlocatableMem/1048576);
+      printf("\t\tMax Allocatable Memory:\t\t%0.00f mb\n", (double)maxAlocatableMem/1048576);
 
-      printf("\t\tLocal Memory:\t\t\t%u kb\n\n", (unsigned int)localMem);
+      printf("\t\tLocal Memory:\t\t\t%u kb\n", (unsigned int)localMem);
 
-      //printf("\t\tMax wg:\t\t\t%u\n\n", (unsigned int)size_wg);
+      printf("\t\tdevice max work group size : \t%llu\n", (unsigned long long)buf_ulong);
+
+      printf("\t\tdevice max work item dimensions:%u\n", (unsigned int) workitem_dims);
+
+      printf("\t\tdevice max work item sizes:\t%u / %u / %u \n\n", workitem_size[0], workitem_size[1], workitem_size[2]);
+
 
     }
 

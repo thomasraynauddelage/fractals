@@ -1,4 +1,4 @@
-#makefile for opencl_mandelbrot.c and mykernel.cl to build outside XCode
+#makefile for opencl_julia.c and mykernel.cl to build outside XCode
 #makes opencl_julia
 #adapted from http://cjlarose.com/2015/02/05/makefile-for-opencl-development.html
 OPENCLC=/System/Library/Frameworks/OpenCL.framework/Libraries/openclc
